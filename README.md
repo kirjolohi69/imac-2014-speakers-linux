@@ -45,6 +45,7 @@ scripts/02-tone-test.sh    # announce "Front Left" etc. on 2/4/6/8 channels, not
 scripts/03-gpio-probe.sh   # flip each codec GPIO to find the speaker amplifier switch
 scripts/04-pin-probe.sh    # temporarily tell the driver which pins are speakers
 scripts/05-macos-verbs.sh  # send the commands macOS uses to switch the speakers on
+scripts/06-isolate.sh      # (after a reboot) find which of those commands is needed
 scripts/undo.sh            # put everything back (a reboot also does)
 ```
 
