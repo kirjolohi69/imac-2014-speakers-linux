@@ -20,7 +20,8 @@ CHANNELS=("$@"); [[ ${#CHANNELS[@]} -gt 0 ]] || CHANNELS=(2 4)
 trap 'tone_stop; pw_start' EXIT
 pw_stop
 
-say "Codec: $CODEC_NAME (card $CARD). Turn the volume down a bit before continuing."
+say "Codec: $CODEC_NAME (card $CARD)."
+say "Test sounds are played at TEST_VOLUME=$TEST_VOLUME (quiet). The desktop volume slider has no effect here."
 say "A voice will say each channel name ('Front Left', 'Rear Right', ...)."
 echo "Tone test on $CODEC_NAME, card $CARD, kernel $(uname -r)" >"$LOG"
 
@@ -31,14 +32,15 @@ for ctl in Master Speaker PCM Front Surround 'Bass Speaker' Center LFE; do
     amixer -q -c "$CARD" sset "$ctl" 80% unmute 2>/dev/null || true
 done
 
+make_quiet_wavs
 for ch in "${CHANNELS[@]}"; do
     echo
-    say "Playing $ch-channel test (each channel is announced once)."
+    read -r -p "Press Enter to play the $ch-channel test (each channel is announced once)... " _ </dev/tty
     # Raw hw: first, so the channel count is exactly what the codec gets.
     dev="hw:${CARD},0"
-    if ! speaker-test -D "$dev" -c "$ch" -t wav -l 1 >"$STATE_DIR/speaker-test.out" 2>&1; then
+    if ! say_channels "$dev" "$ch" >"$STATE_DIR/speaker-test.out" 2>&1; then
         dev="plughw:${CARD},0"
-        if ! speaker-test -D "$dev" -c "$ch" -t wav -l 1 >"$STATE_DIR/speaker-test.out" 2>&1; then
+        if ! say_channels "$dev" "$ch" >"$STATE_DIR/speaker-test.out" 2>&1; then
             warn "$ch channels not supported by this device - skipping."
             echo "$ch ch: not supported" >>"$LOG"
             continue

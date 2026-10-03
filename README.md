@@ -49,5 +49,9 @@ scripts/undo.sh            # put everything back (a reboot also does)
 
 Each step writes its results into `reports/`.
 
+Test sounds are played quietly (15% of full scale). Make them quieter or louder
+with e.g. `TEST_VOLUME=0.05 scripts/02-tone-test.sh` or `TEST_VOLUME=0.3 ...`.
+The desktop volume slider does not affect these tests.
+
 See [docs/background.md](docs/background.md) for background and
 [docs/findings.md](docs/findings.md) for what the reports have shown so far.
