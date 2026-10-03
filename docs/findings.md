@@ -55,3 +55,25 @@ If 0x1e drives part of the speakers, the fix is a small user-level PipeWire
 config: a virtual stereo "iMac Speakers" sink that copies L/R onto all
 four channels in the right order, with software volume. That's one file in
 `~/.config/`, easy to delete, and needs no kernel changes.
+
+## Test 2: desktop sound settings and tone test
+
+* No sound at all from the speakers with the Analog Stereo, 2.1 and 4.0
+  profiles, nor from the direct-to-hardware tone test (2 channels).
+* So the problem is complete silence, not channel layout. The routing is
+  right, so the amplifier or the digital link to it isn't being switched on.
+
+### Lead: what macOS does on the 12" MacBook (same chip, same routing)
+
+The MacBook9,1 driver (github.com/leifliddy/macbook12-audio-driver) replays a
+capture of macOS's codec commands. Before playing to the speakers, macOS:
+
+* sends the vendor verb `0x7f0` with value `3` to converter `0x0a`
+  (Linux never does);
+* sets GPIO direction `0x31`, mask `0x37`, data `0x01` (GPIO0 high, GPIO4/5
+  driven low; Linux only touches GPIO0);
+* sets DIGI_CONVERT_2 = 1 and DIGI_CONVERT_1 = 0x11 on `0x0a`;
+* sends a 4-channel stream into converter `0x0a`.
+
+`scripts/05-macos-verbs.sh` applies these step by step while a quiet voice
+plays.
