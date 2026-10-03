@@ -44,6 +44,7 @@ Later steps (need `sudo apt install alsa-tools` for `hda-verb`):
 scripts/02-tone-test.sh    # announce "Front Left" etc. on 2/4/6/8 channels, note what you hear
 scripts/03-gpio-probe.sh   # flip each codec GPIO to find the speaker amplifier switch
 scripts/04-pin-probe.sh    # temporarily tell the driver which pins are speakers
+scripts/05-macos-verbs.sh  # send the commands macOS uses to switch the speakers on
 scripts/undo.sh            # put everything back (a reboot also does)
 ```
 

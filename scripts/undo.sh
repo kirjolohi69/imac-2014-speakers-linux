@@ -43,4 +43,9 @@ for f in /etc/modprobe.d/imac-speakers.conf /lib/firmware/imac-speakers.fw; do
     fi
 done
 
+if [[ -f "$STATE_DIR/codec.touched" ]]; then
+    warn "05-macos-verbs.sh sent vendor commands that only a reboot clears. Please reboot."
+    rm -f "$STATE_DIR/codec.touched"
+fi
+
 say "Undo complete.${NEED_REBOOT:+ Reboot to fully drop the removed boot-time config.}"
