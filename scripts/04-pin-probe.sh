@@ -76,7 +76,7 @@ say "Driver now sees:"; tail -n 8 "$LOG"
 
 say "Playing test sounds..."
 for ch in 2 4; do
-    if speaker-test -D "plughw:${CARD},0" -c "$ch" -t wav -l 1 >/dev/null 2>&1; then
+    if say_channels "plughw:${CARD},0" "$ch" >/dev/null 2>&1; then
         read -r -p "$ch ch: which channel names did you hear (blank = nothing)? " heard </dev/tty
         read -r -p "    quality? (quiet / tinny / distorted / fine): " how </dev/tty
         echo "$ch ch: heard=[$heard] quality=[$how]" >>"$LOG"

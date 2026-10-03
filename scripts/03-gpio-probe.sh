@@ -51,7 +51,7 @@ set_gpio() {  # set_gpio MASK DIR DATA
     hda_verb 0x01 SET_GPIO_DATA "$3" >/dev/null
 }
 
-if ask_yn "Baseline: a tone is playing now (left, then right). Do you hear it from the speakers?"; then
+if ask_yn "Baseline: a quiet voice is repeating 'Front Left' / 'Front Right'. Do you hear it from the speakers?"; then
     echo "baseline: audible" >>"$LOG"
 else
     echo "baseline: silent" >>"$LOG"
@@ -63,7 +63,7 @@ for ((i = 0; i < NGPIO; i++)); do
         data=$(( (ORIG_DATA & ~bit) | (level ? bit : 0) ))
         set_gpio "$(printf '0x%x' $((ORIG_MASK | bit)))" "$(printf '0x%x' $((ORIG_DIR | bit)))" "$(printf '0x%x' $data)"
         sleep 0.5
-        if ask_yn "GPIO$i = $level (output). Do you hear the tone from the speakers?"; then r=audible; else r=silent; fi
+        if ask_yn "GPIO$i = $level (output). Do you hear the voice from the speakers?"; then r=audible; else r=silent; fi
         read -r -p "   any change in quality vs. before? (blank = no): " note </dev/tty
         echo "GPIO$i=$level -> $r ${note:+($note)}" >>"$LOG"
     done
@@ -72,7 +72,7 @@ done
 
 all=$(( (1 << NGPIO) - 1 ))
 set_gpio "$(printf '0x%x' $all)" "$(printf '0x%x' $all)" "$(printf '0x%x' $all)"
-if ask_yn "ALL GPIOs = 1. Do you hear the tone from the speakers?"; then r=audible; else r=silent; fi
+if ask_yn "ALL GPIOs = 1. Do you hear the voice from the speakers?"; then r=audible; else r=silent; fi
 echo "ALL=1 -> $r" >>"$LOG"
 
 echo
