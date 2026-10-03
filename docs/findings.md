@@ -77,3 +77,25 @@ capture of macOS's codec commands. Before playing to the speakers, macOS:
 
 `scripts/05-macos-verbs.sh` applies these step by step while a quiet voice
 plays.
+
+## Test 3: `05-macos-verbs.sh` (first sound!)
+
+```
+baseline, 2ch                  -> silent
+2ch + 0x7f0=3 on 0x0a/0x0b     -> silent
+2ch + 0x7f0 + macOS GPIOs      -> silent
+2ch + 0x7f0 + GPIOs + DIGI     -> silent
+4ch, Linux routing             -> AUDIBLE
+```
+
+* With a **4-channel stream** the speakers play. Channels 1-2 (the first pair,
+  converter 0x0a -> pin 0x1d) sound **full**. Channels 3-4 (converter
+  0x0b -> pin 0x1e) sound **tinny**. So the speakers look like a 2-way
+  system: 0x1d drives the full-range/woofer drivers, 0x1e the tweeters.
+* The macOS commands were still active from the 2ch steps, and the desktop
+  4.0 profile (4ch without the commands) was silent earlier. So the likely
+  requirement is "4 channels **plus** one of the macOS commands".
+  `scripts/06-isolate.sh` (run after a reboot) tests each one separately, and
+  checks whether the setting survives a stream restart.
+* Caution until we know whether the amp has its own crossover: the tweeters
+  are getting full-range audio, so keep the volume moderate.

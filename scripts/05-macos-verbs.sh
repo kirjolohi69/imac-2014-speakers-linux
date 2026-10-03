@@ -42,7 +42,7 @@ trap 'tone_stop; restore_gpio; ps_restore; pw_start' EXIT
     echo "macOS verb test on $CODEC_NAME, card $CARD, kernel $(uname -r), TEST_VOLUME=$TEST_VOLUME"
     echo "original GPIO: mask=$ORIG_MASK dir=$ORIG_DIR data=$ORIG_DATA"
 } >"$LOG"
-touch "$STATE_DIR/codec.touched"
+cat /proc/sys/kernel/random/boot_id >"$STATE_DIR/codec.touched"
 
 # hda-verb takes 12-bit verbs as 0xNNN and 4-bit verbs as 0xN00.
 VENDOR_7F0=0x7f0

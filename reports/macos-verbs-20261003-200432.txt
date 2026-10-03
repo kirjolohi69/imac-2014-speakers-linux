@@ -1,0 +1,7 @@
+macOS verb test on Cirrus Logic CS4208, card 2, kernel 7.0.0-38-generic, TEST_VOLUME=0.15
+original GPIO: mask=0x1 dir=0x1 data=0x1
+baseline, 2ch -> silent
+2ch + 0x7f0=3 on 0x0a/0x0b -> silent
+2ch + 0x7f0 + macOS GPIOs -> silent
+2ch + 0x7f0 + GPIOs + DIGI -> silent
+4ch, Linux routing -> AUDIBLE
