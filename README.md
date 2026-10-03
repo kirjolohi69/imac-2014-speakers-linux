@@ -29,7 +29,6 @@ Everything is designed so your Mint install can't be broken:
 ```bash
 git clone https://github.com/kirjolohi69/imac-2014-speakers-linux.git
 cd imac-2014-speakers-linux
-git checkout claude/imac-speaker-driver-d1govk
 
 # Step 1 - read-only hardware report (do this first and share the result)
 scripts/01-collect-info.sh
