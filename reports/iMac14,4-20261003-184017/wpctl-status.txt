@@ -1,0 +1,57 @@
+$ wpctl status
+PipeWire 'pipewire-0' [1.0.5, mintadmin@imac, cookie:535914188]
+ └─ Clients:
+        32. WirePlumber                         [1.0.5, mintadmin@imac, pid:11012]
+        33. WirePlumber [export]                [1.0.5, mintadmin@imac, pid:11012]
+        34. pipewire                            [1.0.5, mintadmin@imac, pid:11013]
+        63. Cinnamon Volume Control Media Keys  [1.0.5, mintadmin@imac, pid:11212]
+        64. Blueman                             [1.0.5, mintadmin@imac, pid:11436]
+        65. Muffin                              [1.0.5, mintadmin@imac, pid:11371]
+        66. Cinnamon Volume Control             [1.0.5, mintadmin@imac, pid:11371]
+        67. xdg-desktop-portal                  [1.0.5, mintadmin@imac, pid:11805]
+        69. Firefox                             [1.0.5, mintadmin@imac, pid:12086]
+        71. speech-dispatcher-dummy             [1.0.5, mintadmin@imac, pid:12559]
+        75. wpctl                               [1.0.5, mintadmin@imac, pid:13122]
+
+Audio
+ ├─ Devices:
+ │      44. Built-in Audio                      [alsa]
+ │      45. Aureon Dual USB                     [alsa]
+ │      46. Built-in Audio                      [alsa]
+ │  
+ ├─ Sinks:
+ │  *   36. Built-in Audio Analog Stereo        [vol: 1.00]
+ │      53. Aureon Dual USB Digital Stereo (IEC958) [vol: 0.40]
+ │  
+ ├─ Sink endpoints:
+ │  
+ ├─ Sources:
+ │  *   52. Built-in Audio Analog Stereo        [vol: 1.00]
+ │      54. Aureon Dual USB Mono                [vol: 1.00]
+ │  
+ ├─ Source endpoints:
+ │  
+ └─ Streams:
+        74. speech-dispatcher-dummy                                     
+             68. output_FL       > CS4208 Analog:playback_FL	[init]
+             70. output_FR       > CS4208 Analog:playback_FR	[init]
+
+Video
+ ├─ Devices:
+ │      42. FaceTime HD Camera (Built-in)       [v4l2]
+ │      43. FaceTime HD Camera (Built-in)       [v4l2]
+ │  
+ ├─ Sinks:
+ │  
+ ├─ Sink endpoints:
+ │  
+ ├─ Sources:
+ │  *   47. FaceTime HD Camera (Built-in) (V4L2)
+ │  
+ ├─ Source endpoints:
+ │  
+ └─ Streams:
+
+Settings
+ └─ Default Configured Node Names:
+         0. Audio/Sink    alsa_output.pci-0000_00_1b.0.analog-stereo

@@ -1,0 +1,31 @@
+### vendor_name
+Intel
+
+### chip_name
+Haswell HDMI
+
+### vendor_id
+0x80862807
+
+### subsystem_id
+0x80860101
+
+### revision_id
+0x100000
+
+### modelname
+
+
+### init_pin_configs
+0x05 0x18560010
+0x06 0x18560010
+0x07 0x18560010
+
+### driver_pin_configs
+
+### user_pin_configs
+
+### hints
+
+### init_verbs
+

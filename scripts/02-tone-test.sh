@@ -5,14 +5,17 @@
 # Changes nothing permanently: PipeWire is paused for the duration of the test
 # and restarted automatically when the script ends (even on Ctrl+C).
 #
-# Usage: scripts/02-tone-test.sh [channels...]     default: 2 4 6 8
+# Usage: scripts/02-tone-test.sh [channels...]     default: 2 4
+#
+# On the iMac14,4 the driver exposes 4 channels: Front L/R go to digital
+# pin 0x1d, Rear L/R go to digital pin 0x1e. Both pins feed the speaker amp.
 set -euo pipefail
 source "$(dirname "$0")/lib.sh"
 require_cirrus
 
 LOG="$REPO_DIR/reports/tone-test-$(date +%Y%m%d-%H%M%S).txt"
 mkdir -p "$(dirname "$LOG")"
-CHANNELS=("$@"); [[ ${#CHANNELS[@]} -gt 0 ]] || CHANNELS=(2 4 6 8)
+CHANNELS=("$@"); [[ ${#CHANNELS[@]} -gt 0 ]] || CHANNELS=(2 4)
 
 trap 'tone_stop; pw_start' EXIT
 pw_stop
@@ -31,14 +34,20 @@ done
 for ch in "${CHANNELS[@]}"; do
     echo
     say "Playing $ch-channel test (each channel is announced once)."
-    if ! speaker-test -D "plughw:${CARD},0" -c "$ch" -t wav -l 1 >"$STATE_DIR/speaker-test.out" 2>&1; then
-        warn "$ch channels not supported by this device - skipping."
-        echo "$ch ch: not supported" >>"$LOG"
-        continue
+    # Raw hw: first, so the channel count is exactly what the codec gets.
+    dev="hw:${CARD},0"
+    if ! speaker-test -D "$dev" -c "$ch" -t wav -l 1 >"$STATE_DIR/speaker-test.out" 2>&1; then
+        dev="plughw:${CARD},0"
+        if ! speaker-test -D "$dev" -c "$ch" -t wav -l 1 >"$STATE_DIR/speaker-test.out" 2>&1; then
+            warn "$ch channels not supported by this device - skipping."
+            echo "$ch ch: not supported" >>"$LOG"
+            continue
+        fi
     fi
-    read -r -p "Which channel names did you hear from the SPEAKERS (blank = nothing)? " heard </dev/tty
+    echo "For each name, note where it came from: left speaker, right speaker, both, or silent."
+    read -r -p "e.g. 'FL=left FR=right RL=silent RR=silent': " heard </dev/tty
     read -r -p "Anything odd? (quiet / tinny / distorted / one side only / fine): " how </dev/tty
-    echo "$ch ch: heard=[$heard] quality=[$how]" >>"$LOG"
+    echo "$ch ch ($dev): heard=[$heard] quality=[$how]" >>"$LOG"
 done
 
 if [[ -f "$STATE_DIR/alsa-mixer-before-tone-test.state" ]]; then

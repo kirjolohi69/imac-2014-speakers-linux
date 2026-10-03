@@ -1,0 +1,2 @@
+$ bash -c ls -la /lib/firmware/*.fw /lib/firmware/hda* 2>/dev/null
+(exit code 2)

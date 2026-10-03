@@ -49,4 +49,5 @@ scripts/undo.sh            # put everything back (a reboot also does)
 
 Each step writes its results into `reports/`.
 
-See [docs/background.md](docs/background.md) for what is known so far.
+See [docs/background.md](docs/background.md) for background and
+[docs/findings.md](docs/findings.md) for what the reports have shown so far.

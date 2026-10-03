@@ -1,0 +1,16 @@
+$ pactl info
+Server String: /run/user/1000/pulse/native
+Library Protocol Version: 35
+Server Protocol Version: 35
+Is Local: yes
+Client Index: 117
+Tile Size: 65472
+User Name: mintadmin
+Host Name: imac
+Server Name: PulseAudio (on PipeWire 1.0.5)
+Server Version: 15.0.0
+Default Sample Specification: float32le 2ch 48000Hz
+Default Channel Map: front-left,front-right
+Default Sink: alsa_output.pci-0000_00_1b.0.analog-stereo
+Default Source: alsa_input.pci-0000_00_1b.0.analog-stereo
+Cookie: 1ff1:66cc

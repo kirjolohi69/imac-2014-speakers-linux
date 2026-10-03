@@ -1,0 +1,67 @@
+Model: iMac14,4   Kernel: 7.0.0-38-generic
+Cirrus codec: Cirrus Logic CS4208 on card 2, codec address 0
+Vendor Id: 0x10134208
+Subsystem Id: 0x106b7900
+Revision Id: 0x100300
+
+GPIO state:
+GPIO: io=6, o=2, i=0, unsolicited=1, wake=1
+  IO[0]: enable=1, dir=1, wake=0, sticky=0, data=1, unsol=0
+  IO[1]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+  IO[2]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+  IO[3]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+  IO[4]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+  IO[5]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+
+Pins and their default configs (what the firmware/driver thinks is wired):
+0x10    Pin Default 0x002b4020: [Jack] HP Out at Ext N/A
+0x11    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x12    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x13    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x14    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x15    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x16    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x17    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x18    Pin Default 0x00ab9040: [Jack] Mic at Ext N/A
+0x19    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x1a    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x1b    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x1c    Pin Default 0x90a60100: [Fixed] Mic at Int N/A
+0x1d    Pin Default 0x90100110: [Fixed] Speaker at Int N/A
+0x1e    Pin Default 0x90100112: [Fixed] Speaker at Int N/A
+0x1f    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x20    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+0x21    Pin Default 0x004be030: [Jack] SPDIF Out at Ext N/A
+0x22    Pin Default 0x400000f0: [N/A] Line Out at Ext N/A
+
+Pin controls (OUT = output enabled):
+0x10    Pin-ctls: 0xc0: OUT HP
+0x11    Pin-ctls: 0x00:
+0x12    Pin-ctls: 0x00:
+0x13    Pin-ctls: 0x00:
+0x14    Pin-ctls: 0x00:
+0x15    Pin-ctls: 0x00: VREF_HIZ
+0x16    Pin-ctls: 0x00: VREF_HIZ
+0x17    Pin-ctls: 0x00:
+0x18    Pin-ctls: 0x24: IN VREF_80
+0x19    Pin-ctls: 0x00:
+0x1a    Pin-ctls: 0x00:
+0x1b    Pin-ctls: 0x00:
+0x1c    Pin-ctls: 0x20: IN
+0x1d    Pin-ctls: 0x40: OUT
+0x1e    Pin-ctls: 0x40: OUT
+0x1f    Pin-ctls: 0x00:
+0x20    Pin-ctls: 0x00:
+0x21    Pin-ctls: 0x40: OUT
+0x22    Pin-ctls: 0x00:
+
+[    6.877744] snd_hda_codec_cs420x hdaudioC2D0: CS4208: picked fixup  for codec SSID 106b:0000
+[    6.878281] snd_hda_codec_cs420x hdaudioC2D0: autoconfig for CS4208: line_outs=2 (0x1d/0x1e/0x0/0x0/0x0) type:speaker
+[    6.878293] snd_hda_codec_cs420x hdaudioC2D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+[    6.878298] snd_hda_codec_cs420x hdaudioC2D0:    hp_outs=1 (0x10/0x0/0x0/0x0/0x0)
+[    6.878302] snd_hda_codec_cs420x hdaudioC2D0:    mono: mono_out=0x0
+[    6.878306] snd_hda_codec_cs420x hdaudioC2D0:    dig-out=0x21/0x0
+[    6.878309] snd_hda_codec_cs420x hdaudioC2D0:    inputs:
+[    6.878312] snd_hda_codec_cs420x hdaudioC2D0:      Mic=0x18
+[    6.878314] snd_hda_codec_cs420x hdaudioC2D0:      Internal Mic=0x1c
+[    6.924728] Modules linked in: xt_addrtype kvm(+) btusb snd_hda_codec_cs420x cmdlinepart spi_nor(+) xt_tcpudp snd_hda_codec_generic btmtk snd_hda_codec_intelhdmi wl(POE+) mtd mei_pxp uvcvideo mei_hdcp btrtl irqbypass snd_hda_codec_hdmi videobuf2_vmalloc xt_conntrack snd_hda_intel nf_conntrack uvc btbcm i2c_i801 rapl nf_defrag_ipv6 snd_hda_codec nf_defrag_ipv4 btintel spi_intel_platform videobuf2_memops i2c_smbus videobuf2_v4l2 mei_me snd_hda_core nft_compat spi_intel videobuf2_common applesmc bluetooth intel_cstate cfg80211 binfmt_misc i2c_mux nf_tables lpc_ich mei snd_usb_audio snd_intel_dspcfg snd_usbmidi_lib videodev nls_iso8859_1 snd_intel_sdw_acpi snd_hwdep snd_ump snd_pcm i915 acpi_als snd_seq_midi industrialio_triggered_buffer kfifo_buf snd_seq_midi_event hid_apple snd_rawmidi snd_seq industrialio snd_seq_device drm_buddy snd_timer ttm drm_display_helper snd cec mc rc_core soundcore i2c_algo_bit input_leds apple_mfi_fastcharge mac_hid sch_fq_codel msr parport_pc ppdev lp parport efi_pstore nfnetlink dmi_sysfs

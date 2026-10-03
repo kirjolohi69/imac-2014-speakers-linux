@@ -1,0 +1,49 @@
+$ bash -c grep -rH . /etc/modprobe.d/ 2>/dev/null | grep -i -E 'snd|hda|alsa'
+/etc/modprobe.d/blacklist-modem.conf:# blacklist snd-atiixp-modem
+/etc/modprobe.d/blacklist-modem.conf:# blacklist snd-intel8x0m
+/etc/modprobe.d/blacklist-modem.conf:# blacklist snd-via82xx-modem
+/etc/modprobe.d/blacklist.conf:# snd_intel8x0m can interfere with snd_intel8x0, doesn't seem to support much
+/etc/modprobe.d/blacklist.conf:blacklist snd_intel8x0m
+/etc/modprobe.d/blacklist.conf:blacklist snd_aw2
+/etc/modprobe.d/blacklist.conf:blacklist snd_pcsp
+/etc/modprobe.d/alsa-base.conf:# autoloader aliases
+/etc/modprobe.d/alsa-base.conf:install sound-slot-0 /sbin/modprobe snd-card-0
+/etc/modprobe.d/alsa-base.conf:install sound-slot-1 /sbin/modprobe snd-card-1
+/etc/modprobe.d/alsa-base.conf:install sound-slot-2 /sbin/modprobe snd-card-2
+/etc/modprobe.d/alsa-base.conf:install sound-slot-3 /sbin/modprobe snd-card-3
+/etc/modprobe.d/alsa-base.conf:install sound-slot-4 /sbin/modprobe snd-card-4
+/etc/modprobe.d/alsa-base.conf:install sound-slot-5 /sbin/modprobe snd-card-5
+/etc/modprobe.d/alsa-base.conf:install sound-slot-6 /sbin/modprobe snd-card-6
+/etc/modprobe.d/alsa-base.conf:install sound-slot-7 /sbin/modprobe snd-card-7
+/etc/modprobe.d/alsa-base.conf:# Cause optional modules to be loaded above generic modules
+/etc/modprobe.d/alsa-base.conf:install snd /sbin/modprobe --ignore-install snd $CMDLINE_OPTS && { /sbin/modprobe --quiet --use-blacklist snd-ioctl32 ; /sbin/modprobe --quiet --use-blacklist snd-seq ; }
+/etc/modprobe.d/alsa-base.conf:#
+/etc/modprobe.d/alsa-base.conf:# Workaround at bug #499695 (reverted in Ubuntu see LP #319505)
+/etc/modprobe.d/alsa-base.conf:install snd-pcm /sbin/modprobe --ignore-install snd-pcm $CMDLINE_OPTS && { /sbin/modprobe --quiet --use-blacklist snd-pcm-oss ; : ; }
+/etc/modprobe.d/alsa-base.conf:install snd-mixer /sbin/modprobe --ignore-install snd-mixer $CMDLINE_OPTS && { /sbin/modprobe --quiet --use-blacklist snd-mixer-oss ; : ; }
+/etc/modprobe.d/alsa-base.conf:install snd-seq /sbin/modprobe --ignore-install snd-seq $CMDLINE_OPTS && { /sbin/modprobe --quiet --use-blacklist snd-seq-midi ; /sbin/modprobe --quiet --use-blacklist snd-seq-oss ; : ; }
+/etc/modprobe.d/alsa-base.conf:#
+/etc/modprobe.d/alsa-base.conf:install snd-rawmidi /sbin/modprobe --ignore-install snd-rawmidi $CMDLINE_OPTS && { /sbin/modprobe --quiet --use-blacklist snd-seq-midi ; : ; }
+/etc/modprobe.d/alsa-base.conf:# Cause optional modules to be loaded above sound card driver modules
+/etc/modprobe.d/alsa-base.conf:install snd-emu10k1 /sbin/modprobe --ignore-install snd-emu10k1 $CMDLINE_OPTS && { /sbin/modprobe --quiet --use-blacklist snd-emu10k1-synth ; }
+/etc/modprobe.d/alsa-base.conf:install snd-via82xx /sbin/modprobe --ignore-install snd-via82xx $CMDLINE_OPTS && { /sbin/modprobe --quiet --use-blacklist snd-seq ; }
+/etc/modprobe.d/alsa-base.conf:# Load saa7134-alsa instead of saa7134 (which gets dragged in by it anyway)
+/etc/modprobe.d/alsa-base.conf:install saa7134 /sbin/modprobe --ignore-install saa7134 $CMDLINE_OPTS && { /sbin/modprobe --quiet --use-blacklist saa7134-alsa ; : ; }
+/etc/modprobe.d/alsa-base.conf:# Prevent abnormal drivers from grabbing index 0
+/etc/modprobe.d/alsa-base.conf:options bt87x index=-2
+/etc/modprobe.d/alsa-base.conf:options cx88_alsa index=-2
+/etc/modprobe.d/alsa-base.conf:options saa7134-alsa index=-2
+/etc/modprobe.d/alsa-base.conf:options snd-atiixp-modem index=-2
+/etc/modprobe.d/alsa-base.conf:options snd-intel8x0m index=-2
+/etc/modprobe.d/alsa-base.conf:options snd-via82xx-modem index=-2
+/etc/modprobe.d/alsa-base.conf:options snd-usb-audio index=-2
+/etc/modprobe.d/alsa-base.conf:options snd-usb-caiaq index=-2
+/etc/modprobe.d/alsa-base.conf:options snd-usb-ua101 index=-2
+/etc/modprobe.d/alsa-base.conf:options snd-usb-us122l index=-2
+/etc/modprobe.d/alsa-base.conf:options snd-usb-usx2y index=-2
+/etc/modprobe.d/alsa-base.conf:# Ubuntu #62691, enable MPU for snd-cmipci
+/etc/modprobe.d/alsa-base.conf:options snd-cmipci mpu_port=0x330 fm_port=0x388
+/etc/modprobe.d/alsa-base.conf:# Keep snd-pcsp from being loaded as first soundcard
+/etc/modprobe.d/alsa-base.conf:options snd-pcsp index=-2
+/etc/modprobe.d/alsa-base.conf:# Keep snd-usb-audio from beeing loaded as first soundcard
+/etc/modprobe.d/alsa-base.conf:options snd-usb-audio index=-2

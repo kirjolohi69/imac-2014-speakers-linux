@@ -1,0 +1,18 @@
+[    6.561787] usbcore: registered new interface driver snd-usb-audio
+[    6.773112] snd_hda_intel 0000:00:03.0: bound 0000:00:02.0 (ops intel_audio_component_bind_ops [i915])
+[    6.877744] snd_hda_codec_cs420x hdaudioC2D0: CS4208: picked fixup  for codec SSID 106b:0000
+[    6.878281] snd_hda_codec_cs420x hdaudioC2D0: autoconfig for CS4208: line_outs=2 (0x1d/0x1e/0x0/0x0/0x0) type:speaker
+[    6.878293] snd_hda_codec_cs420x hdaudioC2D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+[    6.878298] snd_hda_codec_cs420x hdaudioC2D0:    hp_outs=1 (0x10/0x0/0x0/0x0/0x0)
+[    6.878302] snd_hda_codec_cs420x hdaudioC2D0:    mono: mono_out=0x0
+[    6.878302] input: HDA Intel HDMI HDMI/DP,pcm=3 as /devices/pci0000:00/0000:00:03.0/sound/card0/input10
+[    6.878306] snd_hda_codec_cs420x hdaudioC2D0:    dig-out=0x21/0x0
+[    6.878309] snd_hda_codec_cs420x hdaudioC2D0:    inputs:
+[    6.878312] snd_hda_codec_cs420x hdaudioC2D0:      Mic=0x18
+[    6.878314] snd_hda_codec_cs420x hdaudioC2D0:      Internal Mic=0x1c
+[    6.878420] input: HDA Intel HDMI HDMI/DP,pcm=7 as /devices/pci0000:00/0000:00:03.0/sound/card0/input11
+[    6.878535] input: HDA Intel HDMI HDMI/DP,pcm=8 as /devices/pci0000:00/0000:00:03.0/sound/card0/input12
+[    6.890559] input: HDA Intel PCH Mic as /devices/pci0000:00/0000:00:1b.0/sound/card2/input13
+[    6.890677] input: HDA Intel PCH Headphone as /devices/pci0000:00/0000:00:1b.0/sound/card2/input14
+[    6.890798] input: HDA Intel PCH SPDIF as /devices/pci0000:00/0000:00:1b.0/sound/card2/input15
+[    6.924728] Modules linked in: xt_addrtype kvm(+) btusb snd_hda_codec_cs420x cmdlinepart spi_nor(+) xt_tcpudp snd_hda_codec_generic btmtk snd_hda_codec_intelhdmi wl(POE+) mtd mei_pxp uvcvideo mei_hdcp btrtl irqbypass snd_hda_codec_hdmi videobuf2_vmalloc xt_conntrack snd_hda_intel nf_conntrack uvc btbcm i2c_i801 rapl nf_defrag_ipv6 snd_hda_codec nf_defrag_ipv4 btintel spi_intel_platform videobuf2_memops i2c_smbus videobuf2_v4l2 mei_me snd_hda_core nft_compat spi_intel videobuf2_common applesmc bluetooth intel_cstate cfg80211 binfmt_misc i2c_mux nf_tables lpc_ich mei snd_usb_audio snd_intel_dspcfg snd_usbmidi_lib videodev nls_iso8859_1 snd_intel_sdw_acpi snd_hwdep snd_ump snd_pcm i915 acpi_als snd_seq_midi industrialio_triggered_buffer kfifo_buf snd_seq_midi_event hid_apple snd_rawmidi snd_seq industrialio snd_seq_device drm_buddy snd_timer ttm drm_display_helper snd cec mc rc_core soundcore i2c_algo_bit input_leds apple_mfi_fastcharge mac_hid sch_fq_codel msr parport_pc ppdev lp parport efi_pstore nfnetlink dmi_sysfs

@@ -1,0 +1,178 @@
+$ pactl list sinks
+Sink #53
+	State: SUSPENDED
+	Name: alsa_output.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00.iec958-stereo
+	Description: Aureon Dual USB Digital Stereo (IEC958)
+	Driver: PipeWire
+	Sample Specification: s16le 2ch 48000Hz
+	Channel Map: front-left,front-right
+	Owner Module: 4294967295
+	Mute: no
+	Volume: front-left: 26214 /  40% / -23,88 dB,   front-right: 26214 /  40% / -23,88 dB
+	        balance 0,00
+	Base Volume: 65536 / 100% / 0,00 dB
+	Monitor Source: alsa_output.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00.iec958-stereo.monitor
+	Latency: 0 usec, configured 0 usec
+	Flags: HARDWARE DECIBEL_VOLUME LATENCY SET_FORMATS 
+	Properties:
+		alsa.card = "1"
+		alsa.card_name = "USB PnP Sound Device"
+		alsa.class = "generic"
+		alsa.components = "USB0ccd:0077"
+		alsa.device = "0"
+		alsa.driver_name = "snd_usb_audio"
+		alsa.id = "Device"
+		alsa.long_card_name = "C-Media Electronics Inc. USB PnP Sound Device at usb-0000:00:14.0-1, full speed"
+		alsa.mixer_name = "USB Mixer"
+		alsa.name = "USB Audio"
+		alsa.resolution_bits = "16"
+		alsa.subclass = "generic-mix"
+		alsa.subdevice = "0"
+		alsa.subdevice_name = "subdevice #0"
+		api.alsa.card.longname = "C-Media Electronics Inc. USB PnP Sound Device at usb-0000:00:14.0-1, full speed"
+		api.alsa.card.name = "USB PnP Sound Device"
+		api.alsa.path = "iec958:1"
+		api.alsa.pcm.card = "1"
+		api.alsa.pcm.stream = "playback"
+		audio.channels = "2"
+		audio.position = "FL,FR"
+		card.profile.device = "4"
+		device.api = "alsa"
+		device.class = "sound"
+		device.id = "45"
+		device.profile.description = "Digital Stereo (IEC958)"
+		device.profile.name = "iec958-stereo"
+		device.routes = "1"
+		factory.name = "api.alsa.pcm.sink"
+		media.class = "Audio/Sink"
+		device.description = "Aureon Dual USB"
+		node.name = "alsa_output.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00.iec958-stereo"
+		node.nick = "USB PnP Sound Device"
+		node.pause-on-idle = "false"
+		object.path = "alsa:pcm:1:iec958:1:playback"
+		priority.driver = "1008"
+		priority.session = "1008"
+		factory.id = "18"
+		clock.quantum-limit = "8192"
+		client.id = "33"
+		node.driver = "true"
+		factory.mode = "merge"
+		audio.adapt.follower = ""
+		library.name = "audioconvert/libspa-audioconvert"
+		object.id = "53"
+		object.serial = "53"
+		api.acp.auto-port = "false"
+		api.acp.auto-profile = "false"
+		api.alsa.card = "1"
+		api.alsa.use-acp = "true"
+		api.dbus.ReserveDevice1 = "Audio1"
+		device.bus = "usb"
+		device.bus-id = "usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00"
+		device.bus_path = "pci-0000:00:14.0-usb-0:1:1.0"
+		device.enum.api = "udev"
+		device.icon_name = "audio-card-analog-usb"
+		device.name = "alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00"
+		device.nick = "USB PnP Sound Device"
+		device.plugged.usec = "6538307"
+		device.product.id = "0x0077"
+		device.product.name = "Aureon Dual USB"
+		device.serial = "C-Media_Electronics_Inc._USB_PnP_Sound_Device"
+		device.subsystem = "sound"
+		sysfs.path = "/devices/pci0000:00/0000:00:14.0/usb1/1-1/1-1:1.0/sound/card1"
+		device.vendor.id = "0x0ccd"
+		device.vendor.name = "TerraTec Electronic GmbH"
+		device.string = "1"
+	Ports:
+		iec958-stereo-output: Digital Output (S/PDIF) (type: SPDIF, priority: 0, availability unknown)
+	Active Port: iec958-stereo-output
+	Formats:
+		pcm
+
+Sink #55
+	State: SUSPENDED
+	Name: alsa_output.pci-0000_00_1b.0.analog-stereo
+	Description: Built-in Audio Analog Stereo
+	Driver: PipeWire
+	Sample Specification: s32le 2ch 48000Hz
+	Channel Map: front-left,front-right
+	Owner Module: 4294967295
+	Mute: no
+	Volume: front-left: 65536 / 100% / 0,00 dB,   front-right: 65536 / 100% / 0,00 dB
+	        balance 0,00
+	Base Volume: 65536 / 100% / 0,00 dB
+	Monitor Source: alsa_output.pci-0000_00_1b.0.analog-stereo.monitor
+	Latency: 0 usec, configured 0 usec
+	Flags: HARDWARE HW_MUTE_CTRL HW_VOLUME_CTRL DECIBEL_VOLUME LATENCY 
+	Properties:
+		alsa.card = "2"
+		alsa.card_name = "HDA Intel PCH"
+		alsa.class = "generic"
+		alsa.components = "HDA:10134208,106b7900,00100300"
+		alsa.device = "0"
+		alsa.driver_name = "snd_hda_intel"
+		alsa.id = "PCH"
+		alsa.long_card_name = "HDA Intel PCH at 0xa0814000 irq 62"
+		alsa.mixer_name = "Cirrus Logic CS4208"
+		alsa.name = "CS4208 Analog"
+		alsa.resolution_bits = "16"
+		alsa.subclass = "generic-mix"
+		alsa.subdevice = "0"
+		alsa.subdevice_name = "subdevice #0"
+		api.alsa.card.longname = "HDA Intel PCH at 0xa0814000 irq 62"
+		api.alsa.card.name = "HDA Intel PCH"
+		api.alsa.path = "front:2"
+		api.alsa.pcm.card = "2"
+		api.alsa.pcm.stream = "playback"
+		audio.channels = "2"
+		audio.position = "FL,FR"
+		card.profile.device = "4"
+		device.api = "alsa"
+		device.class = "sound"
+		device.id = "46"
+		device.profile.description = "Analog Stereo"
+		device.profile.name = "analog-stereo"
+		device.routes = "2"
+		factory.name = "api.alsa.pcm.sink"
+		media.class = "Audio/Sink"
+		device.description = "Built-in Audio"
+		node.name = "alsa_output.pci-0000_00_1b.0.analog-stereo"
+		node.nick = "CS4208 Analog"
+		node.pause-on-idle = "false"
+		object.path = "alsa:pcm:2:front:2:playback"
+		priority.driver = "1009"
+		priority.session = "1009"
+		factory.id = "18"
+		clock.quantum-limit = "8192"
+		client.id = "33"
+		node.driver = "true"
+		factory.mode = "merge"
+		audio.adapt.follower = ""
+		library.name = "audioconvert/libspa-audioconvert"
+		object.id = "36"
+		object.serial = "55"
+		api.acp.auto-port = "false"
+		api.acp.auto-profile = "false"
+		api.alsa.card = "2"
+		api.alsa.use-acp = "true"
+		api.dbus.ReserveDevice1 = "Audio2"
+		device.bus = "pci"
+		device.bus_path = "pci-0000:00:1b.0"
+		device.enum.api = "udev"
+		device.form_factor = "internal"
+		device.icon_name = "audio-card-analog-pci"
+		device.name = "alsa_card.pci-0000_00_1b.0"
+		device.nick = "HDA Intel PCH"
+		device.plugged.usec = "6893739"
+		device.product.id = "0x9c20"
+		device.product.name = "8 Series HD Audio Controller"
+		device.subsystem = "sound"
+		sysfs.path = "/devices/pci0000:00/0000:00:1b.0/sound/card2"
+		device.vendor.id = "0x8086"
+		device.vendor.name = "Intel Corporation"
+		device.string = "2"
+	Ports:
+		analog-output-speaker: Speakers (type: Speaker, priority: 10000, availability group: Legacy 3, availability unknown)
+		analog-output-headphones: Headphones (type: Headphones, priority: 9900, availability group: Legacy 4, not available)
+	Active Port: analog-output-speaker
+	Formats:
+		pcm
