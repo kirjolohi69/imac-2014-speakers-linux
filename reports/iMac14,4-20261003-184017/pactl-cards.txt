@@ -1,0 +1,242 @@
+$ pactl list cards
+Card #44
+	Name: alsa_card.pci-0000_00_03.0
+	Driver: alsa
+	Owner Module: n/a
+	Properties:
+		api.acp.auto-port = "false"
+		api.acp.auto-profile = "false"
+		api.alsa.card = "0"
+		api.alsa.card.longname = "HDA Intel HDMI at 0xa0810000 irq 61"
+		api.alsa.card.name = "HDA Intel HDMI"
+		api.alsa.path = "hw:0"
+		api.alsa.use-acp = "true"
+		api.dbus.ReserveDevice1 = "Audio0"
+		device.api = "alsa"
+		device.bus = "pci"
+		device.bus_path = "pci-0000:00:03.0"
+		device.description = "Built-in Audio"
+		device.enum.api = "udev"
+		device.form_factor = "internal"
+		device.icon_name = "audio-card-analog-pci"
+		device.name = "alsa_card.pci-0000_00_03.0"
+		device.nick = "HDA Intel HDMI"
+		device.plugged.usec = "6875796"
+		device.product.id = "0x0a0c"
+		device.product.name = "Haswell-ULT HD Audio Controller"
+		device.subsystem = "sound"
+		sysfs.path = "/devices/pci0000:00/0000:00:03.0/sound/card0"
+		device.vendor.id = "0x8086"
+		device.vendor.name = "Intel Corporation"
+		media.class = "Audio/Device"
+		factory.id = "14"
+		client.id = "33"
+		object.id = "44"
+		object.serial = "44"
+		object.path = "alsa:pcm:0"
+		alsa.card = "0"
+		alsa.card_name = "HDA Intel HDMI"
+		alsa.long_card_name = "HDA Intel HDMI at 0xa0810000 irq 61"
+		alsa.driver_name = "snd_hda_intel"
+		alsa.mixer_name = "Intel Haswell HDMI"
+		alsa.components = "HDA:80862807,80860101,00100000"
+		alsa.id = "HDMI"
+		device.string = "0"
+	Profiles:
+		off: Off (sinks: 0, sources: 0, priority: 0, available: yes)
+		output:hdmi-stereo: Digital Stereo (HDMI) Output (sinks: 1, sources: 0, priority: 5900, available: no)
+		output:hdmi-stereo-extra1: Digital Stereo (HDMI 2) Output (sinks: 1, sources: 0, priority: 5700, available: no)
+		output:hdmi-stereo-extra2: Digital Stereo (HDMI 3) Output (sinks: 1, sources: 0, priority: 5700, available: no)
+		output:hdmi-surround: Digital Surround 5.1 (HDMI) Output (sinks: 1, sources: 0, priority: 800, available: no)
+		output:hdmi-surround71: Digital Surround 7.1 (HDMI) Output (sinks: 1, sources: 0, priority: 800, available: no)
+		output:hdmi-surround-extra1: Digital Surround 5.1 (HDMI 2) Output (sinks: 1, sources: 0, priority: 600, available: no)
+		output:hdmi-surround71-extra1: Digital Surround 7.1 (HDMI 2) Output (sinks: 1, sources: 0, priority: 600, available: no)
+		output:hdmi-surround-extra2: Digital Surround 5.1 (HDMI 3) Output (sinks: 1, sources: 0, priority: 600, available: no)
+		output:hdmi-surround71-extra2: Digital Surround 7.1 (HDMI 3) Output (sinks: 1, sources: 0, priority: 600, available: no)
+		pro-audio: Pro Audio (sinks: 3, sources: 0, priority: 1, available: yes)
+	Active Profile: off
+	Ports:
+		hdmi-output-0: HDMI / DisplayPort (type: HDMI, priority: 5900, latency offset: 0 usec, availability group: Legacy 1, not available)
+			Properties:
+				port.type = "hdmi"
+				port.availability-group = "Legacy 1"
+				device.icon_name = "video-display"
+				card.profile.port = "0"
+			Part of profile(s): output:hdmi-stereo, output:hdmi-surround, output:hdmi-surround71
+		hdmi-output-1: HDMI / DisplayPort 2 (type: HDMI, priority: 5800, latency offset: 0 usec, availability group: Legacy 2, not available)
+			Properties:
+				port.type = "hdmi"
+				port.availability-group = "Legacy 2"
+				device.icon_name = "video-display"
+				card.profile.port = "1"
+			Part of profile(s): output:hdmi-stereo-extra1, output:hdmi-surround-extra1, output:hdmi-surround71-extra1
+		hdmi-output-2: HDMI / DisplayPort 3 (type: HDMI, priority: 5700, latency offset: 0 usec, availability group: Legacy 3, not available)
+			Properties:
+				port.type = "hdmi"
+				port.availability-group = "Legacy 3"
+				device.icon_name = "video-display"
+				card.profile.port = "2"
+			Part of profile(s): output:hdmi-stereo-extra2, output:hdmi-surround-extra2, output:hdmi-surround71-extra2
+
+Card #45
+	Name: alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00
+	Driver: alsa
+	Owner Module: n/a
+	Properties:
+		api.acp.auto-port = "false"
+		api.acp.auto-profile = "false"
+		api.alsa.card = "1"
+		api.alsa.card.longname = "C-Media Electronics Inc. USB PnP Sound Device at usb-0000:00:14.0-1, full speed"
+		api.alsa.card.name = "USB PnP Sound Device"
+		api.alsa.path = "hw:1"
+		api.alsa.use-acp = "true"
+		api.dbus.ReserveDevice1 = "Audio1"
+		device.api = "alsa"
+		device.bus = "usb"
+		device.bus-id = "usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00"
+		device.bus_path = "pci-0000:00:14.0-usb-0:1:1.0"
+		device.description = "Aureon Dual USB"
+		device.enum.api = "udev"
+		device.icon_name = "audio-card-analog-usb"
+		device.name = "alsa_card.usb-C-Media_Electronics_Inc._USB_PnP_Sound_Device-00"
+		device.nick = "USB PnP Sound Device"
+		device.plugged.usec = "6538307"
+		device.product.id = "0x0077"
+		device.product.name = "Aureon Dual USB"
+		device.serial = "C-Media_Electronics_Inc._USB_PnP_Sound_Device"
+		device.subsystem = "sound"
+		sysfs.path = "/devices/pci0000:00/0000:00:14.0/usb1/1-1/1-1:1.0/sound/card1"
+		device.vendor.id = "0x0ccd"
+		device.vendor.name = "TerraTec Electronic GmbH"
+		media.class = "Audio/Device"
+		factory.id = "14"
+		client.id = "33"
+		object.id = "45"
+		object.serial = "45"
+		object.path = "alsa:pcm:1"
+		alsa.card = "1"
+		alsa.card_name = "USB PnP Sound Device"
+		alsa.long_card_name = "C-Media Electronics Inc. USB PnP Sound Device at usb-0000:00:14.0-1, full speed"
+		alsa.driver_name = "snd_usb_audio"
+		alsa.mixer_name = "USB Mixer"
+		alsa.components = "USB0ccd:0077"
+		alsa.id = "Device"
+		device.string = "1"
+	Profiles:
+		off: Off (sinks: 0, sources: 0, priority: 0, available: yes)
+		output:analog-stereo+input:mono-fallback: Analog Stereo Output + Mono Input (sinks: 1, sources: 1, priority: 6501, available: yes)
+		output:analog-stereo: Analog Stereo Output (sinks: 1, sources: 0, priority: 6500, available: yes)
+		output:iec958-stereo+input:mono-fallback: Digital Stereo (IEC958) Output + Mono Input (sinks: 1, sources: 1, priority: 5501, available: yes)
+		output:iec958-stereo: Digital Stereo (IEC958) Output (sinks: 1, sources: 0, priority: 5500, available: yes)
+		pro-audio: Pro Audio (sinks: 1, sources: 1, priority: 1, available: yes)
+		input:mono-fallback: Mono Input (sinks: 0, sources: 1, priority: 1, available: yes)
+	Active Profile: output:iec958-stereo+input:mono-fallback
+	Ports:
+		analog-input-mic: Microphone (type: Mic, priority: 8700, latency offset: 0 usec, availability unknown)
+			Properties:
+				port.type = "mic"
+				device.icon_name = "audio-input-microphone"
+				card.profile.port = "0"
+			Part of profile(s): input:mono-fallback, output:analog-stereo+input:mono-fallback, output:iec958-stereo+input:mono-fallback
+		analog-output-speaker: Speakers (type: Speaker, priority: 10000, latency offset: 0 usec, availability unknown)
+			Properties:
+				port.type = "speaker"
+				device.icon_name = "audio-speakers"
+				card.profile.port = "1"
+			Part of profile(s): output:analog-stereo, output:analog-stereo+input:mono-fallback
+		iec958-stereo-output: Digital Output (S/PDIF) (type: SPDIF, priority: 0, latency offset: 0 usec, availability unknown)
+			Properties:
+				port.type = "spdif"
+				card.profile.port = "2"
+			Part of profile(s): output:iec958-stereo, output:iec958-stereo+input:mono-fallback
+
+Card #46
+	Name: alsa_card.pci-0000_00_1b.0
+	Driver: alsa
+	Owner Module: n/a
+	Properties:
+		api.acp.auto-port = "false"
+		api.acp.auto-profile = "false"
+		api.alsa.card = "2"
+		api.alsa.card.longname = "HDA Intel PCH at 0xa0814000 irq 62"
+		api.alsa.card.name = "HDA Intel PCH"
+		api.alsa.path = "hw:2"
+		api.alsa.use-acp = "true"
+		api.dbus.ReserveDevice1 = "Audio2"
+		device.api = "alsa"
+		device.bus = "pci"
+		device.bus_path = "pci-0000:00:1b.0"
+		device.description = "Built-in Audio"
+		device.enum.api = "udev"
+		device.form_factor = "internal"
+		device.icon_name = "audio-card-analog-pci"
+		device.name = "alsa_card.pci-0000_00_1b.0"
+		device.nick = "HDA Intel PCH"
+		device.plugged.usec = "6893739"
+		device.product.id = "0x9c20"
+		device.product.name = "8 Series HD Audio Controller"
+		device.subsystem = "sound"
+		sysfs.path = "/devices/pci0000:00/0000:00:1b.0/sound/card2"
+		device.vendor.id = "0x8086"
+		device.vendor.name = "Intel Corporation"
+		media.class = "Audio/Device"
+		factory.id = "14"
+		client.id = "33"
+		object.id = "46"
+		object.serial = "46"
+		object.path = "alsa:pcm:2"
+		alsa.card = "2"
+		alsa.card_name = "HDA Intel PCH"
+		alsa.long_card_name = "HDA Intel PCH at 0xa0814000 irq 62"
+		alsa.driver_name = "snd_hda_intel"
+		alsa.mixer_name = "Cirrus Logic CS4208"
+		alsa.components = "HDA:10134208,106b7900,00100300"
+		alsa.id = "PCH"
+		device.string = "2"
+	Profiles:
+		off: Off (sinks: 0, sources: 0, priority: 0, available: yes)
+		output:analog-stereo+input:analog-stereo: Analog Stereo Duplex (sinks: 1, sources: 1, priority: 6565, available: yes)
+		output:analog-stereo: Analog Stereo Output (sinks: 1, sources: 0, priority: 6500, available: yes)
+		output:iec958-stereo+input:analog-stereo: Digital Stereo (IEC958) Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 5565, available: yes)
+		output:iec958-stereo: Digital Stereo (IEC958) Output (sinks: 1, sources: 0, priority: 5500, available: yes)
+		output:analog-surround-21+input:analog-stereo: Analog Surround 2.1 Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 1365, available: yes)
+		output:analog-surround-21: Analog Surround 2.1 Output (sinks: 1, sources: 0, priority: 1300, available: yes)
+		output:analog-surround-40+input:analog-stereo: Analog Surround 4.0 Output + Analog Stereo Input (sinks: 1, sources: 1, priority: 1265, available: yes)
+		output:analog-surround-40: Analog Surround 4.0 Output (sinks: 1, sources: 0, priority: 1200, available: yes)
+		input:analog-stereo: Analog Stereo Input (sinks: 0, sources: 1, priority: 65, available: yes)
+		pro-audio: Pro Audio (sinks: 2, sources: 1, priority: 1, available: yes)
+	Active Profile: output:analog-stereo+input:analog-stereo
+	Ports:
+		analog-input-internal-mic: Internal Microphone (type: Mic, priority: 8900, latency offset: 0 usec, availability group: Legacy 1, availability unknown)
+			Properties:
+				port.type = "mic"
+				port.availability-group = "Legacy 1"
+				device.icon_name = "audio-input-microphone"
+				card.profile.port = "0"
+			Part of profile(s): input:analog-stereo, output:analog-stereo+input:analog-stereo, output:analog-surround-21+input:analog-stereo, output:analog-surround-40+input:analog-stereo, output:iec958-stereo+input:analog-stereo
+		analog-input-mic: Microphone (type: Mic, priority: 8700, latency offset: 0 usec, availability group: Legacy 2, not available)
+			Properties:
+				port.type = "mic"
+				port.availability-group = "Legacy 2"
+				device.icon_name = "audio-input-microphone"
+				card.profile.port = "1"
+			Part of profile(s): input:analog-stereo, output:analog-stereo+input:analog-stereo, output:analog-surround-21+input:analog-stereo, output:analog-surround-40+input:analog-stereo, output:iec958-stereo+input:analog-stereo
+		analog-output-speaker: Speakers (type: Speaker, priority: 10000, latency offset: 0 usec, availability group: Legacy 3, availability unknown)
+			Properties:
+				port.type = "speaker"
+				port.availability-group = "Legacy 3"
+				device.icon_name = "audio-speakers"
+				card.profile.port = "2"
+			Part of profile(s): output:analog-stereo, output:analog-stereo+input:analog-stereo, output:analog-surround-21, output:analog-surround-21+input:analog-stereo, output:analog-surround-40, output:analog-surround-40+input:analog-stereo
+		analog-output-headphones: Headphones (type: Headphones, priority: 9900, latency offset: 0 usec, availability group: Legacy 4, not available)
+			Properties:
+				port.type = "headphones"
+				port.availability-group = "Legacy 4"
+				device.icon_name = "audio-headphones"
+				card.profile.port = "3"
+			Part of profile(s): output:analog-stereo, output:analog-stereo+input:analog-stereo
+		iec958-stereo-output: Digital Output (S/PDIF) (type: SPDIF, priority: 0, latency offset: 0 usec, availability unknown)
+			Properties:
+				port.type = "spdif"
+				card.profile.port = "4"
+			Part of profile(s): output:iec958-stereo, output:iec958-stereo+input:analog-stereo

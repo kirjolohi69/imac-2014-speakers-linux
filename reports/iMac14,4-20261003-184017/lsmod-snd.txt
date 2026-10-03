@@ -1,0 +1,26 @@
+$ bash -c lsmod | grep -i snd
+snd_seq_dummy          12288  0
+snd_hrtimer            12288  2
+snd_hda_codec_cs420x    16384  1
+snd_hda_codec_generic   122880  1 snd_hda_codec_cs420x
+snd_hda_codec_intelhdmi    24576  1
+snd_hda_codec_hdmi     65536  1 snd_hda_codec_intelhdmi
+snd_hda_intel          61440  2
+snd_hda_codec         204800  5 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hda_codec_cs420x,snd_hda_intel,snd_hda_codec_intelhdmi
+snd_hda_core          151552  6 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hda_codec_cs420x,snd_hda_intel,snd_hda_codec,snd_hda_codec_intelhdmi
+snd_usb_audio         598016  1
+snd_intel_dspcfg       45056  1 snd_hda_intel
+snd_usbmidi_lib        57344  1 snd_usb_audio
+snd_intel_sdw_acpi     16384  1 snd_intel_dspcfg
+snd_hwdep              24576  2 snd_usb_audio,snd_hda_codec
+snd_ump                49152  1 snd_usb_audio
+snd_pcm               204800  5 snd_hda_codec_hdmi,snd_hda_intel,snd_usb_audio,snd_hda_codec,snd_hda_core
+snd_seq_midi           24576  0
+snd_seq_midi_event     16384  1 snd_seq_midi
+snd_rawmidi            57344  3 snd_seq_midi,snd_usbmidi_lib,snd_ump
+snd_seq               126976  15 snd_seq_midi,snd_seq_midi_event,snd_seq_dummy
+snd_seq_device         16384  4 snd_seq,snd_seq_midi,snd_ump,snd_rawmidi
+snd_timer              53248  3 snd_seq,snd_hrtimer,snd_pcm
+snd                   143360  23 snd_hda_codec_generic,snd_seq,snd_seq_device,snd_hda_codec_hdmi,snd_hwdep,snd_hda_intel,snd_usb_audio,snd_usbmidi_lib,snd_hda_codec,snd_timer,snd_ump,snd_pcm,snd_rawmidi
+mc                     90112  5 videodev,snd_usb_audio,videobuf2_v4l2,uvcvideo,videobuf2_common
+soundcore              16384  1 snd

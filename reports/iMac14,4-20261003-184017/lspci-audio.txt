@@ -1,0 +1,14 @@
+$ bash -c lspci -nnk | grep -A4 -i audio
+00:03.0 Audio device [0403]: Intel Corporation Haswell-ULT HD Audio Controller [8086:0a0c] (rev 09)
+	Subsystem: Apple Inc. Haswell-ULT HD Audio Controller [106b:013c]
+	Kernel driver in use: snd_hda_intel
+	Kernel modules: snd_hda_intel
+00:14.0 USB controller [0c03]: Intel Corporation 8 Series USB xHCI HC [8086:9c31] (rev 04)
+	Subsystem: Intel Corporation Apple MacBookAir6,2 / MacBookPro11,1 [8086:7270]
+--
+00:1b.0 Audio device [0403]: Intel Corporation 8 Series HD Audio Controller [8086:9c20] (rev 04)
+	Subsystem: Intel Corporation 8 Series HD Audio Controller [8086:7270]
+	Kernel driver in use: snd_hda_intel
+	Kernel modules: snd_hda_intel
+00:1c.0 PCI bridge [0604]: Intel Corporation 8 Series PCI Express Root Port 1 [8086:9c10] (rev e4)
+	Subsystem: Intel Corporation 8 Series PCI Express Root Port 1 [8086:7270]
