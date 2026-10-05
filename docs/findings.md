@@ -166,3 +166,13 @@ hardware:
 
 Limitation: the headphone jack only exists in the "Analog Stereo" profile,
 so headphones need a profile switch in Sound settings.
+
+## Test 6: first listening with the fix
+
+* "Sounds pretty good". The balance slider works and isolates each speaker.
+* The left side sounds a bit bassier and "different" from the right. Possible
+  causes: room placement (a wall or corner near one side), a level difference
+  between the two woofers, or one side's tweeter wired with opposite polarity
+  to its woofer (that changes how the drivers sum around the crossover).
+  `scripts/08-compare-sides.sh` A/B-tests woofer vs woofer and tweeter vs
+  tweeter, and checks in-phase vs flipped-tweeter on each side.
