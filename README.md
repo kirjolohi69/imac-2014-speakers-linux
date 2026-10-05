@@ -11,16 +11,21 @@ digital link. The fix is a PipeWire setting in your home folder. See
 ## Install the fix
 
 ```bash
-bash scripts/install-fix.sh          # optional: crossover in Hz, default 2500
+bash scripts/install-fix.sh --system   # for every user on this iMac (asks for sudo)
+bash scripts/install-fix.sh            # or: just for you
+# optional last argument: crossover in Hz, default 2500
 ```
 
 This creates a stereo output called **"iMac Speakers"**, makes it the
-default, and sets its volume to 30%. It splits the sound into the 4 channels
+default, and sets its volume to 30% (other users start at 100% the first
+time they use it). It splits the sound into the 4 channels
 the speakers need: treble to the tweeters, bass to the woofers.
 
 * Undo: `bash scripts/uninstall-fix.sh` (restores your previous sound setup).
-* Changed files: only `~/.config/pipewire/pipewire.conf.d/60-imac-speakers.conf`
-  plus the card profile and default output, which uninstall puts back.
+* Changed files: `/etc/pipewire/pipewire.conf.d/60-imac-speakers.conf` and
+  `/etc/wireplumber/main.lua.d/51-imac-speakers.lua` (`--system`), or
+  `~/.config/pipewire/pipewire.conf.d/60-imac-speakers.conf` (just you), plus
+  the card profile and default output, which uninstall puts back.
 * Headphones: switch the built-in card's profile to "Analog Stereo Duplex" in
   Sound settings (and back to "Analog Surround 4.0 Output" for the speakers).
 
@@ -34,7 +39,7 @@ Everything is designed so your Mint install can't be broken:
 | Test tones (`02`) | PipeWire paused while testing | restarted automatically |
 | GPIO / pin experiments (`03`, `04`) | **RAM only**, inside the running sound driver | `scripts/undo.sh` **or just reboot** |
 | Vendor-command experiments (`05`, `06`) | **RAM only**, inside the codec | reboot |
-| The fix (`install-fix.sh`) | one PipeWire file in your home folder | `scripts/uninstall-fix.sh` |
+| The fix (`install-fix.sh`) | one PipeWire file in your home folder, or two small files in `/etc` (`--system`) | `scripts/uninstall-fix.sh` |
 
 * No kernel is replaced, nothing is compiled into the system, no firmware/NVRAM
   is written.
