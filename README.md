@@ -68,6 +68,7 @@ scripts/06-isolate.sh      # (after a reboot) find which of those commands is ne
 scripts/07-channel-map.sh  # which channel is which driver, and does PipeWire's format work
 scripts/install-fix.sh     # install the fix (see above)
 scripts/08-compare-sides.sh  # (with the fix installed) compare left/right drivers, check polarity
+scripts/09-mic-headphones.sh # built-in microphone + headphone jack check
 scripts/uninstall-fix.sh   # remove it
 scripts/undo.sh            # put everything back (a reboot also does)
 ```
