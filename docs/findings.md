@@ -88,10 +88,8 @@ baseline, 2ch                  -> silent
 4ch, Linux routing             -> AUDIBLE
 ```
 
-* With a **4-channel stream** the speakers play. Channels 1-2 (the first pair,
-  converter 0x0a -> pin 0x1d) sound **full**. Channels 3-4 (converter
-  0x0b -> pin 0x1e) sound **tinny**. So the speakers look like a 2-way
-  system: 0x1d drives the full-range/woofer drivers, 0x1e the tweeters.
+* With a **4-channel stream** the speakers play. Some channels sound full,
+  others tinny (corrected in test 4 below: the split is per side, not per pair).
 * The macOS commands were still active from the 2ch steps, and the desktop
   4.0 profile (4ch without the commands) was silent earlier. So the likely
   requirement is "4 channels **plus** one of the macOS commands".
@@ -99,3 +97,32 @@ baseline, 2ch                  -> silent
   checks whether the setting survives a stream restart.
 * Caution until we know whether the amp has its own crossover: the tweeters
   are getting full-range audio, so keep the volume moderate.
+
+## Test 4: `06-isolate.sh` (after a reboot, clean codec)
+
+```
+1. 4ch, nothing changed                         -> AUDIBLE
+2. 4ch + macOS GPIOs only                       -> AUDIBLE
+3. 4ch + vendor verb 0x7f0=3 only               -> AUDIBLE
+4. 4ch + vendor verb + macOS GPIOs              -> AUDIBLE
+5. 4ch, new stream, no re-send                  -> AUDIBLE
+6. 4ch, new stream, vendor verb re-sent         -> AUDIBLE
+7. 2ch + vendor verb + macOS GPIOs              -> silent
+```
+
+* **No codec commands are needed.** The only requirement is a
+  **4-channel stream**. A 2-channel stream is silent, even with all the macOS
+  commands applied.
+* **The layout is per side, not front/rear.** Channels 1 and 2 (converter
+  0x0a -> pin 0x1d) both play from the **left** speaker. One sounds tinny
+  (tweeter), one full (woofer): ch1 = tinny, ch2 = full. Channels 3 and 4
+  (0x0b -> 0x1e) both play from the **right** speaker, one tinny and one full.
+  Which of ch3/ch4 is the tweeter isn't confirmed yet.
+* So each digital link feeds one side's 2-way speaker (tweeter + woofer).
+  A normal stereo signal has to be split as L -> ch1+ch2, R -> ch3+ch4,
+  ideally with a crossover (high-pass for tweeters, low-pass for woofers).
+* The card number changed from 2 to 0 between boots, so a fix must not
+  hard-code it.
+* Open question: the desktop "Analog Surround 4.0" profile was silent in
+  test 2, even though it is a 4-channel stream. `scripts/07-channel-map.sh`
+  checks the sample formats PipeWire uses and plays through PipeWire.

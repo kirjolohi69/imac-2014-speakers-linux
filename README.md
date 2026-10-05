@@ -46,6 +46,7 @@ scripts/03-gpio-probe.sh   # flip each codec GPIO to find the speaker amplifier 
 scripts/04-pin-probe.sh    # temporarily tell the driver which pins are speakers
 scripts/05-macos-verbs.sh  # send the commands macOS uses to switch the speakers on
 scripts/06-isolate.sh      # (after a reboot) find which of those commands is needed
+scripts/07-channel-map.sh  # which channel is which driver, and does PipeWire's format work
 scripts/undo.sh            # put everything back (a reboot also does)
 ```
 
