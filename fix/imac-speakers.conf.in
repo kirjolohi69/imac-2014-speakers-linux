@@ -1,0 +1,65 @@
+# iMac14,4 (Mid 2014) internal speakers: virtual stereo sink "iMac Speakers".
+#
+# Installed by scripts/install-fix.sh to
+#   ~/.config/pipewire/pipewire.conf.d/60-imac-speakers.conf
+# Remove with scripts/uninstall-fix.sh (or just delete this file and log out/in).
+#
+# Why: the speakers only play when the codec gets a 4-channel stream, and each
+# side is a 2-way speaker on its own digital link:
+#   ch1 (FL) = left tweeter    ch2 (FR) = left woofer
+#   ch3 (RL) = right tweeter   ch4 (RR) = right woofer
+# This filter takes normal stereo, splits each side with a 4th-order
+# Linkwitz-Riley crossover (two cascaded Butterworth biquads) at @XOVER@ Hz,
+# and sends the 4 channels to the card's "Analog Surround 4.0" output.
+# The high-pass also keeps bass away from the small tweeters.
+
+context.modules = [
+{   name = libpipewire-module-filter-chain
+    args = {
+        node.description = "iMac Speakers"
+        media.name       = "iMac Speakers"
+        filter.graph = {
+            nodes = [
+                { type = builtin name = splitL label = copy }
+                { type = builtin name = splitR label = copy }
+                { type = builtin name = hpL1 label = bq_highpass control = { "Freq" = @XOVER@ "Q" = 0.7071 } }
+                { type = builtin name = hpL2 label = bq_highpass control = { "Freq" = @XOVER@ "Q" = 0.7071 } }
+                { type = builtin name = lpL1 label = bq_lowpass  control = { "Freq" = @XOVER@ "Q" = 0.7071 } }
+                { type = builtin name = lpL2 label = bq_lowpass  control = { "Freq" = @XOVER@ "Q" = 0.7071 } }
+                { type = builtin name = hpR1 label = bq_highpass control = { "Freq" = @XOVER@ "Q" = 0.7071 } }
+                { type = builtin name = hpR2 label = bq_highpass control = { "Freq" = @XOVER@ "Q" = 0.7071 } }
+                { type = builtin name = lpR1 label = bq_lowpass  control = { "Freq" = @XOVER@ "Q" = 0.7071 } }
+                { type = builtin name = lpR2 label = bq_lowpass  control = { "Freq" = @XOVER@ "Q" = 0.7071 } }
+            ]
+            links = [
+                { output = "splitL:Out" input = "hpL1:In" }
+                { output = "splitL:Out" input = "lpL1:In" }
+                { output = "hpL1:Out"   input = "hpL2:In" }
+                { output = "lpL1:Out"   input = "lpL2:In" }
+                { output = "splitR:Out" input = "hpR1:In" }
+                { output = "splitR:Out" input = "lpR1:In" }
+                { output = "hpR1:Out"   input = "hpR2:In" }
+                { output = "lpR1:Out"   input = "lpR2:In" }
+            ]
+            inputs  = [ "splitL:In" "splitR:In" ]
+            outputs = [ "hpL2:Out" "lpL2:Out" "hpR2:Out" "lpR2:Out" ]
+        }
+        capture.props = {
+            node.name      = "imac_speakers"
+            media.class    = Audio/Sink
+            audio.channels = 2
+            audio.position = [ FL FR ]
+            priority.session = 2000
+        }
+        playback.props = {
+            node.name      = "imac_speakers.output"
+            node.passive   = true
+            audio.channels = 4
+            audio.position = [ FL FR RL RR ]
+            stream.dont-remix = true
+            node.dont-reconnect = true
+            target.object  = "@TARGET@"
+        }
+    }
+}
+]
