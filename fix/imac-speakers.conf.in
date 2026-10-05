@@ -57,7 +57,9 @@ context.modules = [
             audio.channels = 4
             audio.position = [ FL FR RL RR ]
             stream.dont-remix = true
-            node.dont-reconnect = true
+            # No node.dont-reconnect: if the 4.0 output isn't there yet when
+            # PipeWire starts (or disappears during a profile switch), the
+            # filter must still connect once it (re)appears.
             target.object  = "@TARGET@"
         }
     }
