@@ -67,6 +67,7 @@ scripts/05-macos-verbs.sh  # send the commands macOS uses to switch the speakers
 scripts/06-isolate.sh      # (after a reboot) find which of those commands is needed
 scripts/07-channel-map.sh  # which channel is which driver, and does PipeWire's format work
 scripts/install-fix.sh     # install the fix (see above)
+scripts/08-compare-sides.sh  # (with the fix installed) compare left/right drivers, check polarity
 scripts/uninstall-fix.sh   # remove it
 scripts/undo.sh            # put everything back (a reboot also does)
 ```
