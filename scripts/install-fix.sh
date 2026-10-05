@@ -5,7 +5,7 @@
 # What it changes (all inside your home folder, nothing system-wide):
 #   * ~/.config/pipewire/pipewire.conf.d/60-imac-speakers.conf   (new file)
 #   * the built-in card's profile -> "Analog Surround 4.0 Output + Analog Stereo Input"
-#   * the default output -> "iMac Speakers" (volume set to 30% to start)
+#   * the default output -> "iMac Speakers" (its volume slider starts at 30%)
 # The previous profile/default output are saved and restored by
 # scripts/uninstall-fix.sh.
 #
@@ -37,26 +37,35 @@ fi
 say "Writing $CONF (crossover ${XOVER} Hz, target $TARGET)"
 sed -e "s/@XOVER@/${XOVER}.0/g" -e "s/@TARGET@/${TARGET}/g" "$REPO_DIR/fix/imac-speakers.conf.in" >"$CONF"
 
-say "Switching the built-in card to the 4-channel profile"
-pactl set-card-profile "$PA_CARD" "$PROFILE"
+trap 'warn "Step failed: $BASH_COMMAND (line $LINENO)"' ERR
 
-say "Restarting PipeWire to load the new sink"
+# retry N CMD...  -> run CMD until it succeeds, up to N times, 0.5 s apart
+retry() {
+    local n=$1; shift
+    for ((i = 0; i < n; i++)); do
+        "$@" >/dev/null 2>&1 && return 0
+        sleep 0.5
+    done
+    "$@"   # last try, showing the error
+}
+has_sink() { pactl list short sinks | awk -v s="$1" '$2==s {f=1} END {exit !f}'; }
+
+say "Restarting PipeWire to load the new config"
 systemctl --user restart pipewire.service pipewire-pulse.service wireplumber.service
-for _ in $(seq 1 20); do
-    pactl list short sinks 2>/dev/null | grep -q "imac_speakers" && break
-    sleep 0.5
-done
-pactl list short sinks | grep -q "imac_speakers" || die "The 'iMac Speakers' sink did not appear. Check: journalctl --user -u pipewire -n 50"
+retry 20 pactl info
 
-# WirePlumber may restore the old profile on restart; set it again.
-pactl set-card-profile "$PA_CARD" "$PROFILE" || true
-sleep 1
-pactl set-sink-volume "$TARGET" 100% 2>/dev/null || true     # raw 4ch output at 0 dB; volume is done on iMac Speakers
-pactl set-default-sink imac_speakers
-pactl set-sink-volume imac_speakers 30%
-pactl set-sink-mute imac_speakers 0
+say "Switching the built-in card to the 4-channel profile"
+retry 20 pactl set-card-profile "$PA_CARD" "$PROFILE"
+retry 20 has_sink "$TARGET" || die "The 4-channel output ($TARGET) did not appear."
+retry 20 has_sink imac_speakers || die "The 'iMac Speakers' sink did not appear. Check: journalctl --user -u pipewire -u wireplumber -n 50"
 
-say "Installed. 'iMac Speakers' is now the default output, at 30% volume."
+pactl set-sink-volume "$TARGET" 100% || true     # raw 4ch output at 0 dB; volume is done on iMac Speakers
+retry 10 pactl set-default-sink imac_speakers
+retry 10 pactl set-sink-volume imac_speakers 30%
+retry 10 pactl set-sink-mute imac_speakers 0
+
+say "Installed. 'iMac Speakers' is now the default output; its volume slider starts at 30%."
 say "Play some music and raise the volume slowly."
-say "Headphones: switch the 'Speakers - Built-in Audio' profile to 'Analog Stereo Duplex' in Sound settings."
+say "Headphones: switch the 'Speakers - Built-in Audio' profile to 'Analog Stereo Duplex' in Sound settings,"
+say "and pick the headphones as output. Switch back to 'Analog Surround 4.0 Output' + 'iMac Speakers' afterwards."
 say "To remove: scripts/uninstall-fix.sh"
