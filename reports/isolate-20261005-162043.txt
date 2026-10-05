@@ -1,0 +1,9 @@
+Isolation test on Cirrus Logic CS4208, card 0, kernel 7.0.0-38-generic, TEST_VOLUME=0.15
+original GPIO: mask=0x1 dir=0x1 data=0x1
+1. 4ch, nothing changed -> AUDIBLE (front right, rear center full. front left, other rear center tinny. fr left and front right can be heard on the same side  can be heard on the right. I cant seem to edit my responses here properly what I mean is that FR and FL can be heard on the left, not right side)
+2. 4ch + macOS GPIOs only -> AUDIBLE (same.)
+3. 4ch + vendor verb 0x7f0=3 only (GPIOs back to Linux default) -> AUDIBLE (same)
+4. 4ch + vendor verb + macOS GPIOs -> AUDIBLE (same)
+5. 4ch, new stream, no re-send -> AUDIBLE (same.)
+6. 4ch, new stream, vendor verb re-sent -> AUDIBLE (same)
+7. 2ch + vendor verb + macOS GPIOs -> silent
