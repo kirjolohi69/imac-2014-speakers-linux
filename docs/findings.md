@@ -189,3 +189,19 @@ No level difference between the two woofers or the two tweeters, so the
 perceived left/right difference is most likely room placement or the
 enclosures. Polarity is still unchecked; if the two sides ever sound clearly
 different around voices, rerun the script to check it.
+
+## System-wide install (`install-fix.sh --system`)
+
+* `/etc/pipewire/pipewire.conf.d/60-imac-speakers.conf`: the same filter, loaded
+  for every user.
+* `/etc/wireplumber/main.lua.d/51-imac-speakers.lua`: adds the 4-channel
+  profile to WirePlumber's profile priorities for the built-in card. WirePlumber
+  0.4.17 picks a profile in this order: the user's saved choice, then this
+  priority list, then its built-in priorities. So users who never picked a
+  profile get the 4.0 profile automatically.
+* "iMac Speakers" has `priority.session = 2000` (ALSA sinks are about 1000), so it
+  becomes the default output for anyone without a configured default.
+* Checked with PipeWire 1.0.5 + WirePlumber 0.4.17 and a fresh user state:
+  WirePlumber loads the rule from `/etc` without errors, and "iMac Speakers"
+  becomes the default sink. Its volume starts at 100% for a new user and
+  is remembered after they change it once.

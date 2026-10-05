@@ -2,26 +2,41 @@
 # Install the speaker fix for the current user: a PipeWire virtual sink
 # "iMac Speakers" that turns stereo into the 4 channels the speakers need.
 #
-# What it changes (all inside your home folder, nothing system-wide):
-#   * ~/.config/pipewire/pipewire.conf.d/60-imac-speakers.conf   (new file)
-#   * the built-in card's profile -> "Analog Surround 4.0 Output + Analog Stereo Input"
-#   * the default output -> "iMac Speakers" (its volume slider starts at 30%)
-# The previous profile/default output are saved and restored by
-# scripts/uninstall-fix.sh.
+# Two ways to install:
 #
-# Usage: scripts/install-fix.sh [crossover_hz]      default crossover: 2500
+#   scripts/install-fix.sh [crossover_hz]            just for you
+#     * ~/.config/pipewire/pipewire.conf.d/60-imac-speakers.conf
+#
+#   scripts/install-fix.sh --system [crossover_hz]   for every user (asks for sudo)
+#     * /etc/pipewire/pipewire.conf.d/60-imac-speakers.conf
+#     * /etc/wireplumber/main.lua.d/51-imac-speakers.lua  (prefers the 4-channel
+#       profile for users who haven't picked a profile themselves)
+#     * removes the per-user file above, so the sink isn't created twice
+#
+# For you (the user running the script) it also switches the built-in card to
+# "Analog Surround 4.0 Output + Analog Stereo Input" and makes "iMac Speakers"
+# the default output with its volume slider at 30%. The previous profile and
+# default output are saved and restored by scripts/uninstall-fix.sh.
+#
+# Default crossover: 2500 Hz
 set -euo pipefail
 source "$(dirname "$0")/lib.sh"
 require_cirrus
 
+SYSTEM=0
+if [[ ${1:-} == --system ]]; then SYSTEM=1; shift; fi
 XOVER="${1:-2500}"
 [[ $XOVER =~ ^[0-9]+$ && $XOVER -ge 500 && $XOVER -le 8000 ]] || die "Crossover must be a whole number of Hz between 500 and 8000."
 
-CONF_DIR="$HOME/.config/pipewire/pipewire.conf.d"
-CONF="$CONF_DIR/60-imac-speakers.conf"
+USER_CONF="$HOME/.config/pipewire/pipewire.conf.d/60-imac-speakers.conf"
+SYS_CONF="/etc/pipewire/pipewire.conf.d/60-imac-speakers.conf"
+SYS_WP="/etc/wireplumber/main.lua.d/51-imac-speakers.lua"
 SAVE_DIR="$HOME/.local/state/imac-speakers"
 PROFILE="output:analog-surround-40+input:analog-stereo"
-mkdir -p "$CONF_DIR" "$SAVE_DIR"
+mkdir -p "$SAVE_DIR"
+if [[ $SYSTEM == 0 && -f $SYS_CONF ]]; then
+    die "The fix is already installed system-wide. To change it, run: scripts/install-fix.sh --system [crossover_hz]"
+fi
 
 PA_CARD="$(pactl list short cards | awk '/pci-0000_00_1b/ {print $2; exit}')"
 [[ -n $PA_CARD ]] || die "Built-in sound card not found in PipeWire (is PipeWire running?)."
@@ -34,8 +49,25 @@ if [[ ! -f "$SAVE_DIR/previous" ]]; then
     printf 'PA_CARD=%q\nPREV_PROFILE=%q\nPREV_SINK=%q\n' "$PA_CARD" "$prev_profile" "$prev_sink" >"$SAVE_DIR/previous"
 fi
 
-say "Writing $CONF (crossover ${XOVER} Hz, target $TARGET)"
-sed -e "s/@XOVER@/${XOVER}.0/g" -e "s/@TARGET@/${TARGET}/g" "$REPO_DIR/fix/imac-speakers.conf.in" >"$CONF"
+TMP="$(mktemp -d)"
+sed -e "s/@XOVER@/${XOVER}.0/g" -e "s/@TARGET@/${TARGET}/g" "$REPO_DIR/fix/imac-speakers.conf.in" >"$TMP/60-imac-speakers.conf"
+sed -e "s/@CARD@/${PA_CARD}/g" "$REPO_DIR/fix/51-imac-speakers.lua" >"$TMP/51-imac-speakers.lua"
+
+if [[ $SYSTEM == 1 ]]; then
+    say "Installing system-wide (crossover ${XOVER} Hz). sudo may ask for your password."
+    sudo install -D -m 644 "$TMP/60-imac-speakers.conf" "$SYS_CONF"
+    sudo install -D -m 644 "$TMP/51-imac-speakers.lua" "$SYS_WP"
+    say "  $SYS_CONF"
+    say "  $SYS_WP"
+    if [[ -f $USER_CONF ]]; then
+        say "Removing your per-user copy ($USER_CONF), the system-wide one replaces it"
+        rm -f "$USER_CONF"
+    fi
+else
+    say "Writing $USER_CONF (crossover ${XOVER} Hz, target $TARGET)"
+    install -D -m 644 "$TMP/60-imac-speakers.conf" "$USER_CONF"
+fi
+rm -rf "$TMP"
 
 trap 'warn "Step failed: $BASH_COMMAND (line $LINENO)"' ERR
 
@@ -64,7 +96,11 @@ retry 10 pactl set-default-sink imac_speakers
 retry 10 pactl set-sink-volume imac_speakers 30%
 retry 10 pactl set-sink-mute imac_speakers 0
 
-say "Installed. 'iMac Speakers' is now the default output; its volume slider starts at 30%."
+say "Installed. 'iMac Speakers' is now your default output; its volume slider starts at 30%."
+if [[ $SYSTEM == 1 ]]; then
+    say "Other users get it at their next login (log them out first if they are logged in)."
+    say "Their 'iMac Speakers' volume starts at 100% the first time; they can lower it once, it is remembered."
+fi
 say "Play some music and raise the volume slowly."
 say "Headphones: switch the 'Speakers - Built-in Audio' profile to 'Analog Stereo Duplex' in Sound settings,"
 say "and pick the headphones as output. Switch back to 'Analog Surround 4.0 Output' + 'iMac Speakers' afterwards."
