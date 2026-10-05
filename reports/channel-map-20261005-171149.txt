@@ -1,0 +1,17 @@
+Channel map test on Cirrus Logic CS4208, card 2, kernel 7.0.0-38-generic, TEST_VOLUME=0.15
+A ch1: side=l sound=t
+A ch2: side=l sound=f
+A ch3: side=r sound=t
+A ch4: side=r sound=f
+B S32_LE 48000: AUDIBLE
+B S16_LE 44100: not supported by hw
+B S32_LE 44100: not supported by hw
+C card=alsa_card.pci-0000_00_1b.0 original profile=output:analog-stereo+input:analog-stereo original sink=alsa_output.pci-0000_00_1b.0.analog-stereo
+Volume: front-left: 33026 /  50% / -17,86 dB,   front-right: 33026 /  50% / -17,86 dB,   rear-left: 33026 /  50% / -17,86 dB,   rear-right: 33026 /  50% / -17,86 dB
+        balance 0,00
+C pipewire surround-40 sink=alsa_output.pci-0000_00_1b.0.analog-surround-40: AUDIBLE
+	Sample Specification: s32le 4ch 48000Hz
+	Channel Map: front-left,front-right,rear-left,rear-right
+	Volume: front-left: 33026 /  50% / -17,86 dB,   front-right: 33026 /  50% / -17,86 dB,   rear-left: 33026 /  50% / -17,86 dB,   rear-right: 33026 /  50% / -17,86 dB
+	Base Volume: 65536 / 100% / 0,00 dB
+		api.alsa.path = "surround40:2"

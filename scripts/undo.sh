@@ -48,4 +48,8 @@ if [[ -f "$STATE_DIR/codec.touched" ]]; then
     rm -f "$STATE_DIR/codec.touched"
 fi
 
+if [[ -f "$HOME/.config/pipewire/pipewire.conf.d/60-imac-speakers.conf" ]]; then
+    say "The speaker fix is installed; remove it with scripts/uninstall-fix.sh if you want to."
+fi
+
 say "Undo complete.${NEED_REBOOT:+ Reboot to fully drop the removed boot-time config.}"

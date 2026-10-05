@@ -117,7 +117,7 @@ baseline, 2ch                  -> silent
   0x0a -> pin 0x1d) both play from the **left** speaker. One sounds tinny
   (tweeter), one full (woofer): ch1 = tinny, ch2 = full. Channels 3 and 4
   (0x0b -> 0x1e) both play from the **right** speaker, one tinny and one full.
-  Which of ch3/ch4 is the tweeter isn't confirmed yet.
+  Test 5 confirms ch3 = right tweeter, ch4 = right woofer.
 * So each digital link feeds one side's 2-way speaker (tweeter + woofer).
   A normal stereo signal has to be split as L -> ch1+ch2, R -> ch3+ch4,
   ideally with a crossover (high-pass for tweeters, low-pass for woofers).
@@ -126,3 +126,43 @@ baseline, 2ch                  -> silent
 * Open question: the desktop "Analog Surround 4.0" profile was silent in
   test 2, even though it is a 4-channel stream. `scripts/07-channel-map.sh`
   checks the sample formats PipeWire uses and plays through PipeWire.
+
+## Test 5: `07-channel-map.sh`
+
+```
+A ch1: side=l sound=t      -> left tweeter
+A ch2: side=l sound=f      -> left woofer
+A ch3: side=r sound=t      -> right tweeter
+A ch4: side=r sound=f      -> right woofer
+B S32_LE 48000: AUDIBLE
+B S16_LE 44100: not supported by hw
+B S32_LE 44100: not supported by hw
+C pipewire surround-40 (s32le 4ch 48000Hz, FL FR RL RR): AUDIBLE
+```
+
+* Complete map: FL = left tweeter, FR = left woofer, RL = right tweeter,
+  RR = right woofer.
+* The hardware accepts 48 kHz only. PipeWire's default (S32_LE, 48 kHz)
+  works, and PipeWire resamples 44.1 kHz content itself.
+* PipeWire's own "Analog Surround 4.0" profile reaches the speakers, so
+  the fix can be done entirely in PipeWire. The earlier silent desktop test
+  was probably a profile switch that hadn't taken effect.
+
+## The fix: `scripts/install-fix.sh`
+
+A PipeWire filter-chain (`fix/imac-speakers.conf.in`) creates a normal stereo
+sink, **"iMac Speakers"**. It splits each side with a 4th-order
+Linkwitz-Riley crossover (default 2500 Hz) and plays the result on the 4.0
+output: L high -> FL, L low -> FR, R high -> RL, R low -> RR.
+
+I checked it in a clean PipeWire 1.0.5 + WirePlumber 0.4.17 setup (the
+versions in Mint 22.3), with a null 4-channel sink standing in for the
+hardware:
+
+| input | ch1 L-tw | ch2 L-wf | ch3 R-tw | ch4 R-wf |
+|---|---|---|---|---|
+| L=100 Hz, R=8 kHz | 0 | 100 Hz | 8 kHz | 0 |
+| L=8 kHz, R=100 Hz | 8 kHz | 0 | 0 | 100 Hz |
+
+Limitation: the headphone jack only exists in the "Analog Stereo" profile,
+so headphones need a profile switch in Sound settings.
