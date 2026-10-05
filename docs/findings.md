@@ -176,3 +176,16 @@ so headphones need a profile switch in Sound settings.
   to its woofer (that changes how the drivers sum around the crossover).
   `scripts/08-compare-sides.sh` A/B-tests woofer vs woofer and tweeter vs
   tweeter, and checks in-phase vs flipped-tweeter on each side.
+
+### Result (`08-compare-sides.sh`, partial run)
+
+```
+woofers:  same
+tweeters: same
+polarity: not tested (stopped by user)
+```
+
+No level difference between the two woofers or the two tweeters, so the
+perceived left/right difference is most likely room placement or the
+enclosures. Polarity is still unchecked; if the two sides ever sound clearly
+different around voices, rerun the script to check it.
