@@ -1,5 +1,10 @@
 # Background: why the speakers misbehave
 
+> Written at the start of the investigation, before any tests. Several
+> hypotheses below turned out wrong. For what was actually found, see
+> [findings.md](findings.md): the speakers need a 4-channel stream, and no
+> codec commands are needed.
+
 ## The hardware
 
 * iMac14,4 (21.5", Mid 2014) uses a **Cirrus Logic CS4208** HD-Audio codec

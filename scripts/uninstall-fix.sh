@@ -6,7 +6,8 @@ source "$(dirname "$0")/lib.sh"
 
 CONF="$HOME/.config/pipewire/pipewire.conf.d/60-imac-speakers.conf"
 SYS_CONF="/etc/pipewire/pipewire.conf.d/60-imac-speakers.conf"
-SYS_WP="/etc/wireplumber/main.lua.d/51-imac-speakers.lua"
+SYS_WP04="/etc/wireplumber/main.lua.d/51-imac-speakers.lua"
+SYS_WP05="/etc/wireplumber/wireplumber.conf.d/51-imac-speakers.conf"
 SAVE="$HOME/.local/state/imac-speakers/previous"
 
 found=0
@@ -14,9 +15,9 @@ if [[ -f $CONF ]]; then
     say "Removing $CONF"
     rm -f "$CONF"; found=1
 fi
-if [[ -f $SYS_CONF || -f $SYS_WP ]]; then
+if [[ -f $SYS_CONF || -f $SYS_WP04 || -f $SYS_WP05 ]]; then
     say "Removing the system-wide files (sudo may ask for your password)"
-    sudo rm -f "$SYS_CONF" "$SYS_WP"; found=1
+    sudo rm -f "$SYS_CONF" "$SYS_WP04" "$SYS_WP05"; found=1
     say "Other users go back to normal at their next login."
 fi
 [[ $found == 1 ]] || say "No fix config found (already removed)."
