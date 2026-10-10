@@ -9,8 +9,9 @@
 #
 #   scripts/install-fix.sh --system [crossover_hz]   for every user (asks for sudo)
 #     * /etc/pipewire/pipewire.conf.d/60-imac-speakers.conf
-#     * /etc/wireplumber/main.lua.d/51-imac-speakers.lua  (prefers the 4-channel
-#       profile for users who haven't picked a profile themselves)
+#     * /etc/wireplumber/main.lua.d/51-imac-speakers.lua           (WirePlumber 0.4)
+#       or /etc/wireplumber/wireplumber.conf.d/51-imac-speakers.conf (WirePlumber 0.5+)
+#       which prefer the 4-channel profile for users who haven't picked one themselves
 #     * removes the per-user file above, so the sink isn't created twice
 #
 # For you (the user running the script) it also switches the built-in card to
@@ -23,6 +24,16 @@ set -euo pipefail
 source "$(dirname "$0")/lib.sh"
 require_cirrus
 
+command -v pactl >/dev/null || die "pactl is missing. Install it first (Debian/Ubuntu/Mint: sudo apt install pulseaudio-utils, Fedora: sudo dnf install pulseaudio-utils, Arch: sudo pacman -S libpulse)."
+[[ "$(pactl info 2>/dev/null)" == *PipeWire* ]] || die "This fix needs PipeWire as the sound server (pactl info should mention PipeWire)."
+
+MODEL="$(cat /sys/class/dmi/id/product_name 2>/dev/null || echo unknown)"
+if [[ $MODEL != "iMac14,4" ]]; then
+    warn "This fix was made for the iMac14,4 (21.5-inch, Mid 2014). This computer is: $MODEL"
+    warn "Its speakers may be wired differently. Check with scripts/07-channel-map.sh first."
+    ask_yn "Install anyway?" || exit 1
+fi
+
 SYSTEM=0
 if [[ ${1:-} == --system ]]; then SYSTEM=1; shift; fi
 XOVER="${1:-2500}"
@@ -30,7 +41,8 @@ XOVER="${1:-2500}"
 
 USER_CONF="$HOME/.config/pipewire/pipewire.conf.d/60-imac-speakers.conf"
 SYS_CONF="/etc/pipewire/pipewire.conf.d/60-imac-speakers.conf"
-SYS_WP="/etc/wireplumber/main.lua.d/51-imac-speakers.lua"
+SYS_WP04="/etc/wireplumber/main.lua.d/51-imac-speakers.lua"
+SYS_WP05="/etc/wireplumber/wireplumber.conf.d/51-imac-speakers.conf"
 SAVE_DIR="$HOME/.local/state/imac-speakers"
 PROFILE="output:analog-surround-40+input:analog-stereo"
 mkdir -p "$SAVE_DIR"
@@ -52,13 +64,20 @@ fi
 TMP="$(mktemp -d)"
 sed -e "s/@XOVER@/${XOVER}.0/g" -e "s/@TARGET@/${TARGET}/g" "$REPO_DIR/fix/imac-speakers.conf.in" >"$TMP/60-imac-speakers.conf"
 sed -e "s/@CARD@/${PA_CARD}/g" "$REPO_DIR/fix/51-imac-speakers.lua" >"$TMP/51-imac-speakers.lua"
+sed -e "s/@CARD@/${PA_CARD}/g" "$REPO_DIR/fix/51-imac-speakers.conf" >"$TMP/51-imac-speakers.conf"
 
 if [[ $SYSTEM == 1 ]]; then
     say "Installing system-wide (crossover ${XOVER} Hz). sudo may ask for your password."
     sudo install -D -m 644 "$TMP/60-imac-speakers.conf" "$SYS_CONF"
-    sudo install -D -m 644 "$TMP/51-imac-speakers.lua" "$SYS_WP"
     say "  $SYS_CONF"
-    say "  $SYS_WP"
+    wp_ver="$(wireplumber --version 2>/dev/null | sed -n 's/.*libwireplumber \([0-9]*\.[0-9]*\).*/\1/p' | head -n1)"
+    if [[ $wp_ver == 0.4 ]]; then
+        sudo install -D -m 644 "$TMP/51-imac-speakers.lua" "$SYS_WP04"
+        say "  $SYS_WP04"
+    else
+        sudo install -D -m 644 "$TMP/51-imac-speakers.conf" "$SYS_WP05"
+        say "  $SYS_WP05 (WirePlumber ${wp_ver:-version unknown})"
+    fi
     if [[ -f $USER_CONF ]]; then
         say "Removing your per-user copy ($USER_CONF), the system-wide one replaces it"
         rm -f "$USER_CONF"
